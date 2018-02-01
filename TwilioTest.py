@@ -2,7 +2,7 @@
 #TwilioTest.py
 
 #Programmer: alex.sobey@gmail.com
-#Notes:
+#Notes: Test for use of SMS with twilio
 
 import os
 
