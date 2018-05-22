@@ -8,10 +8,10 @@
 import os, time
 
 #Turn On TV and change input source
-os.system('irsend SEND_ONCE /home/pi/lircd.conf KEY_POWER')
+os.system('irsend SEND_ONCE /home/pi/lircd_toshiba.conf KEY_POWER')
 time.sleep(12)
-os.system('irsend SEND_ONCE /home/pi/lircd.conf KEY_I')
+os.system('irsend SEND_ONCE /home/pi/lircd_toshiba.conf KEY_I')
 time.sleep(1)
-os.system('irsend SEND_ONCE /home/pi/lircd.conf KEY_5')
+os.system('irsend SEND_ONCE /home/pi/lircd_toshiba.conf KEY_5')
 time.sleep(1)
-os.system('irsend SEND_ONCE /home/pi/lircd.conf KEY_ENTER')
+os.system('irsend SEND_ONCE /home/pi/lircd_toshiba.conf KEY_ENTER')
