@@ -2,15 +2,15 @@
 #Total_mp3_Stream_Scraper.py
 
 #Author: A. Sobey
-#Repository: github.com/asobey/
+#Repository: https://github.com/asobey/AutomateAllTheThings/Total_mp3_Steam_Scraper.py
 #Description: Asks for a URL and scrapes/downloads all .mp3's located at or under that URL.
 
 import os, requests, re
 from bs4 import BeautifulSoup as bs
 import urllib.request
 
-#url = input("Enter a website to extract .mp3's from (please include http...): ")
-url = 'http://podbay.fm/show/201598403'
+url = input("Enter a website to extract .mp3's from (please include http...): ")
+#url = 'http://podbay.fm/show/201598403'
 
 # make target folder if it does not exist
 target_folder = 'C:\\Users\\asobey\\PycharmProjects\\AutomateAllTheThings\\mp3_downloads'
