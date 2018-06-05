@@ -4,51 +4,58 @@
 import requests, webbrowser, bs4, time, yaml
 from selenium import webdriver
 
-with open('RestartTheInternet.yaml', 'r') as private:
-    try:
-        privateData = yaml.load(private)
-        globals().update(privateData)
-    except yaml.YAMLError as exc:
-        print(exc)
-print(globals())
-'''
-#webbrowser.open('https://customer.xfinity.com/#/services/modem-restart')
-browser = webdriver.Firefox()
-#browser.get('https://customer.xfinity.com/#/services/modem-restart')
-browser.get('https://login.xfinity.com/login?r=comcast.net&s=oauth&continue=https%3A%2F%2Foauth.xfinity.com%2Foauth%2Fauthorize%3Fclient_id%3Dmy-account-web%26prompt%3Dlogin%26redirect_uri%3Dhttps%253A%252F%252Fcustomer.xfinity.com%252Foauth%252Fcallback%26response_type%3Dcode%26state%3D%2523%252Fservices%252Fmodem-restart%26response%3D1&forceAuthn=1&client_id=my-account-web&reqId=4de868f6-4297-41f7-9a6a-89cc73e6dc1f')
+def comcastNewSignal(comcastUserName, comcastPassword):
+    #webbrowser.open('https://customer.xfinity.com/#/services/modem-restart')
+    browser = webdriver.Firefox()
+    #browser.get('https://customer.xfinity.com/#/services/modem-restart')
+    browser.get('https://login.xfinity.com/login?r=comcast.net&s=oauth&continue=https%3A%2F%2Foauth.xfinity.com%2Foauth%2Fauthorize%3Fclient_id%3Dmy-account-web%26prompt%3Dlogin%26redirect_uri%3Dhttps%253A%252F%252Fcustomer.xfinity.com%252Foauth%252Fcallback%26response_type%3Dcode%26state%3D%2523%252Fservices%252Fmodem-restart%26response%3D1&forceAuthn=1&client_id=my-account-web&reqId=4de868f6-4297-41f7-9a6a-89cc73e6dc1f')
 
-### Modem Reboot
-browser2 = webdriver.Firefox()
-browser2.get('http://192.168.0.1/AMSOHJDAMKGLGPNC/userRpm/Index.htm')
+    username = browser.find_element_by_id('user')
+    username.send_keys(comcastUserName)
 
-time.sleep(2)
-userName = browser.find_element_by_id('userName')
-userName.send_keys(routerUserName)
+    passwd = browser.find_element_by_id('passwd')
+    passwd.send_keys(comcastPassword)
 
-pcPassword = browser.find_element_by_id('pcPassword')
-pcPassword.send_keys(routerPassword)
+    passwd.submit()
+    time.sleep(10)
 
-time.sleep(2)
+    browser.get('https://customer.xfinity.com/#/services/modem-restart')
+    time.sleep(5)
+    restart = browser.find_element_by_css_selector('button.button')
+    restart.click()
+    print('Comcast is sending a new signal!')
 
-username = browser.find_element_by_id('user')
-username.send_keys(comcastUserName)
+def modemReboot(routerUserName, routerPassword):
+    browser = webdriver.Firefox()
+    browser.get('http://192.168.0.1/AMSOHJDAMKGLGPNC/userRpm/Index.htm')
 
-passwd = browser.find_element_by_id('passwd')
-passwd.send_keys(comcastPassword)
+    time.sleep(2)
+    userName = browser.find_element_by_id('userName')
+    userName.send_keys(routerUserName)
 
-passwd.submit()
+    pcPassword = browser.find_element_by_id('pcPassword')
+    pcPassword.send_keys(routerPassword)
 
-time.sleep(10)
-
-browser.get('https://customer.xfinity.com/#/services/modem-restart')
-
-
-### Modem Reboot
-#browser2 = webdriver.Firefox()
-#browser2.get('http://192.168.0.1/AMSOHJDAMKGLGPNC/userRpm/Index.htm')
+    #pcPassword.submit()
+    LoginButton = browser.find_element_by_css_selector('#loginBtn')
+    LoginButton.click()
+    time.sleep(2)
+    #browser.get('http://192.168.0.1/PKVJKTJAMEWSGJKA/userRpm/DateTimeCfgRpm.htm')
+    #browser.get('http://192.168.0.1/YCPPGYJBESAAVRYB/userRpm/Index.htm')
 
 
+if __name__ == '__main__':
+    with open('RestartTheInternet.yaml', 'r') as private:
+        try:
+            privateData = yaml.load(private)
+        except yaml.YAMLError as exc:
+            print(exc)
 
-pcPassword.submit
+    #comcastNewSignal(privateData['comcastUserName'], privateData['comcastPassword'])
 
-'''
+    modemReboot(privateData['routerUserName'], privateData['routerPassword'])
+
+
+
+
+
