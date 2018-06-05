@@ -43,13 +43,23 @@ def modemReboot(routerUserName, routerPassword):
     #browser.get('http://192.168.0.1/PKVJKTJAMEWSGJKA/userRpm/DateTimeCfgRpm.htm')
     #browser.get('http://192.168.0.1/YCPPGYJBESAAVRYB/userRpm/Index.htm')
 
-
-if __name__ == '__main__':
-    with open('RestartTheInternet.yaml', 'r') as private:
+def accessPrivateYAML(yaml_name):
+    with open(yaml_name, 'r') as private:
         try:
             privateData = yaml.load(private)
+            return(privateData)
         except yaml.YAMLError as exc:
             print(exc)
+
+if __name__ == '__main__':
+    #Used to store private data locally only (i.e. not on a Github public share)
+    #with open('RestartTheInternet.yaml', 'r') as private:
+    #    try:
+    #        privateData = yaml.load(private)
+    #    except yaml.YAMLError as exc:
+    #        print(exc)
+    privateData = accessPrivateYAML('RestartTheInternet.yaml')
+
 
     #comcastNewSignal(privateData['comcastUserName'], privateData['comcastPassword'])
 

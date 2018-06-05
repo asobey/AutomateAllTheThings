@@ -7,7 +7,7 @@
 import os
 import time
 
-from twilio.rest import Client
+#from twilio.rest import Client
 # run test
 speed_test = os.popen('speedtest-cli --simple').read()
 # split output from 3 lines into speed
@@ -21,19 +21,12 @@ if "Cannot" in speed_test:
 	u = 0
 # extract the values for ping, down and up values
 else:
-    p = lines[0][6:18]
     d = lines[1][10:23]
     u = lines[2][8:19]
 #print for debug
+    p = lines[0][6:18]
 print(now,p, d, u)
 
-#setting up and sending SMS via Twilio account
-accountSID = 'AC046802bc1bcd9de48e4a997d35888ee9'
-authToken = ''
+msg = f'Time:{now} Ping:{p} D:{d} U:{u}'
 
-client = Client(accountSID, authToken)
-
-myTwilioNumber = '+15129569204'
-myCellPhone = '+1'
-
-client.messages.create(body=f'Time:{now} Ping:{p} D:{d} U:{u}', from_=myTwilioNumber, to=myCellPhone)
+print(msg)
