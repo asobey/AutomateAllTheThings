@@ -9,11 +9,11 @@ import os, requests, re
 from bs4 import BeautifulSoup as bs
 import urllib.request
 
-url = input("Enter a website to extract .mp3's from (please include http...): ")
-#url = 'http://podbay.fm/show/201598403'
+#url = input("Enter a website to extract .mp3's from (please include http...): ")
+url = 'http://podbay.fm/show/201598403'
 
 # make target folder if it does not exist
-target_folder = 'C:\\Users\\asobey\\PycharmProjects\\AutomateAllTheThings\\mp3_downloads'
+target_folder = 'C:\\Users\\alexs\\PycharmProjects\\AutomateAllTheThings\\mp3_downloads'
 if not os.path.exists(target_folder):
     os.makedirs(target_folder)
 print('mp3\'s will be placed into: ' + target_folder)
@@ -36,11 +36,22 @@ for link in top_soup.find_all('a'):
             if 'Download' in sub_link:
                 download_link = sub_link.get('href')
                 print('---------> ' + download_link)
-                if 'Episode' in download_link:
-                    episode = re.search('Episode-([0-9]*)', download_link).group(1)
-                    season = re.search('Season-([0-9]*)', download_link).group(1)
-
+                if 'Episode' or 'Lesson' in download_link:
+                    if 'Episode' in download_link:
+                        episode = re.search('Episode-([0-9]*)', download_link).group(1)
+                    elif 'Lesson' in download_link:
+                        episode = re.search('Lesson-([0-9]*)', download_link).group(1)
+                    else:
+                        episode = 'none'
+                    season = 'none'
+                    try:
+                        season = re.search('Season-([0-9]*)', download_link).group(1)
+                    except:
+                        season = 'none'
                     file_name = 'Coffee_Break_Spanish_S' + season + '_E' + episode
                     print('Downloading===================>' + file_name)
                     target_path = os.path.join(target_folder, file_name)
-                    urllib.request.urlretrieve(download_link, target_path)
+                    try:
+                        urllib.request.urlretrieve(download_link, target_path)
+                    except:
+                        print('could not download :' + download_link)

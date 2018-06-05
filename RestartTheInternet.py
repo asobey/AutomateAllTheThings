@@ -1,9 +1,17 @@
 #! python3
 # RestartTheInterent.py - Xfininity new modem signal, Restart Router
 
-import requests, webbrowser, bs4, time
+import requests, webbrowser, bs4, time, yaml
 from selenium import webdriver
 
+with open('RestartTheInternet.yaml', 'r') as private:
+    try:
+        privateData = yaml.load(private)
+        globals().update(privateData)
+    except yaml.YAMLError as exc:
+        print(exc)
+print(globals())
+'''
 #webbrowser.open('https://customer.xfinity.com/#/services/modem-restart')
 browser = webdriver.Firefox()
 #browser.get('https://customer.xfinity.com/#/services/modem-restart')
@@ -15,18 +23,18 @@ browser2.get('http://192.168.0.1/AMSOHJDAMKGLGPNC/userRpm/Index.htm')
 
 time.sleep(2)
 userName = browser.find_element_by_id('userName')
-userName.send_keys('tp-link')
+userName.send_keys(routerUserName)
 
 pcPassword = browser.find_element_by_id('pcPassword')
-pcPassword.send_keys('Thri11H0usetp')
+pcPassword.send_keys(routerPassword)
 
 time.sleep(2)
 
 username = browser.find_element_by_id('user')
-username.send_keys('alex.sobey@gmail.com')
+username.send_keys(comcastUserName)
 
 passwd = browser.find_element_by_id('passwd')
-passwd.send_keys('Thri11H0usexf')
+passwd.send_keys(comcastPassword)
 
 passwd.submit()
 
@@ -42,3 +50,5 @@ browser.get('https://customer.xfinity.com/#/services/modem-restart')
 
 
 pcPassword.submit
+
+'''
