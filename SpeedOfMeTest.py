@@ -1,5 +1,5 @@
 #! Python3
-#ResetModem.py
+#SpeedOfMeTest.py
 #Programmer: alex.sobey@gmail.com
 #Heavily used: https://automatetheboringstuff.com/chapter11/    Web Scrapping Chapter
 
